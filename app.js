@@ -4,6 +4,7 @@ var express = require('express'),
 	app = express(),
 	port = process.env.PORT || 9054,
 	LessonModel = require('./models/lessonModel');
+	UserModel = require('./models/userModel');
 	
 var url = process.env.MONGODB_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/kantanAPI'
 mongoose.connect(url, function () {
@@ -13,10 +14,10 @@ mongoose.connect(url, function () {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("/getLesson", (req, res) => {
+app.get("/getLesson", (req, res, next) => {
 	LessonModel.find({}, function(err, lesson) {
 		if (err) {
-			res.send(err);
+			next(err);
 		}
 		else {
 			res.json(lesson);
@@ -24,13 +25,15 @@ app.get("/getLesson", (req, res) => {
 	});
 });
 
-app.post("/createLesson", (req, res) => {
+app.post("/createLesson", (req, res, next) => {
 	var newLesson = new LessonModel(req.body);
 	newLesson.save(function(err, lesson) {
 		if (err) {
-			res.send(err);
+			next(err);
+			console.log(err);
 		} else {
 			res.json(lesson);
+			console.log('lesson created');
 		}
 	});
 })
