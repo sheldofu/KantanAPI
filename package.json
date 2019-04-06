@@ -1,0 +1,23 @@
+{
+  "name": "kantanapi",
+  "version": "1.0.0",
+  "description": "API for Kantan Japanese",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheldofu/KantanAPI.git"
+  },
+  "keywords": [
+    "API",
+    "node"
+  ],
+  "author": "Sheldon Marsh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sheldofu/KantanAPI/issues"
+  },
+  "homepage": "https://github.com/sheldofu/KantanAPI#readme"
+}
