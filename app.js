@@ -6,7 +6,7 @@ var express = require('express'),
 	LessonModel = require('./models/lessonModel');
 	UserModel = require('./models/userModel');
 	
-var url = process.env.MONGODB_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/kantanAPI'
+var url = process.env.MONGODB_URI || 'mongodb://localhost/kantanAPI'
 mongoose.connect(url, function () {
   console.log('mongodb connected')
 })
