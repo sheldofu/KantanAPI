@@ -22,11 +22,13 @@
   },
   "homepage": "https://github.com/sheldofu/KantanAPI#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.22"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
     "nodemon": "^1.18.10"
   }
 }
