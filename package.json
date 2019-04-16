@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open",
+    "server": "node app.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -25,10 +28,19 @@
     "bcrypt": "^3.0.6",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.4.22"
+    "mongoose": "^5.4.22",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
     "eslint": "^5.16.0",
-    "nodemon": "^1.18.10"
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.10",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
   }
 }
