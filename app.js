@@ -10,7 +10,6 @@ const express = require('express'),
 	LessonModel = require('./models/lessonModel'),
 	UserModel = require('./models/userModel');
 
-	
 const url = process.env.MONGODB_URI || 'mongodb://localhost/kantanAPI'
 mongoose.connect(url, function () {
   console.log('mongodb connected')
@@ -18,6 +17,12 @@ mongoose.connect(url, function () {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "*"); 
+    next();
+});
 
 app.get("/lesson", middleware.checkToken, (req, res, next) => {
 
@@ -70,6 +75,8 @@ app.post("/user", function (req, res, next) {
 
 app.post("/token", (req, res, next) => {
 
+	console.log('token endpoint');
+
 	UserModel.findOne({username: req.body.username, active: true})
 	.select('password')
 	.exec(function(err, user){
@@ -92,7 +99,11 @@ app.post("/token", (req, res, next) => {
 					});					
 				} else {
 					let token = jwt.sign({username: req.body.username}, config.secret, { expiresIn: '12h' });
-					res.send(token);
+					return res.json({
+						success: true,
+						message: 'login successful',
+						token: token
+					});
 				}
 			})
 		}

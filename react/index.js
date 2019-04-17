@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Start from "./start";
+import LoginForm from "./login";
 
 ReactDOM.render(
-  <Start />,
+  <LoginForm />,
   document.querySelector('#app')
 );
