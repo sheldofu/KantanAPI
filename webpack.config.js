@@ -9,7 +9,10 @@ module.exports = {
     },
     devtool: 'source-map', //source-map for prod
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        proxy: {
+            '/lesson': 'http://localhost:9054'
+        }
     },
     module: {
         rules: [
@@ -19,6 +22,13 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             }
         ]
     },

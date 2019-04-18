@@ -1,14 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
-
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		axios.defaults.baseURL = 'http://localhost:9054';
 		this.state = {
-			value: '',
 			username: '',
 			password: '',
 			loginResponse: ''
@@ -29,14 +27,14 @@ class LoginForm extends React.Component {
 			password: this.state.password
 		}).then((result) => {
 			console.log(result);
-			if (result.data.success == true) {
-				console.log('sucess');
-				localStorage.set('token', result.data.token);
-				axios.defaults.headers.common['Authorization'] = result.data.token;
-			}
 			this.setState({
 				loginResponse: result.data
 			});
+			if (result.data.success == true) {
+				console.log('success');
+				localStorage.setItem('token', result.data.token);
+				axios.defaults.headers.common['Authorization'] = result.data.token;
+			}
 		}).catch((error) => {
 			console.log(error);
 		});
@@ -44,14 +42,23 @@ class LoginForm extends React.Component {
 	}
 
 	render() {
+
+		if (this.state.loginResponse.success == true) {
+			return <Redirect to='mainCms' />
+		}
+
 		return (
 			<form onSubmit={this.handleSubmit}>
-			<label>Username</label>
-			<input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-			<label>Password</label>
-			<input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
-			<input type="submit" value="Submit" />
-			<h1>{this.state.loginResponse.message}</h1>
+				<label>
+					Username
+					<input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+				</label>
+				<label>
+					Password
+					<input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
+				</label>
+				<input type="submit" value="Submit" />
+				<h1>{this.state.loginResponse.message}</h1>
 			</form>
 		);
 	}

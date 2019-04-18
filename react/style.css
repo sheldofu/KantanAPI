@@ -1,0 +1,16 @@
+form {
+    width: 200px;
+    margin: auto;
+    height: auto;
+}
+
+label {
+    height: auto;
+    width: 100%;
+    margin: 10px 0;
+    display: block;
+}
+
+input {
+    width: 100%;
+}

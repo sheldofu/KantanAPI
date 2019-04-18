@@ -26,6 +26,8 @@ app.use(function(req, res, next) {
 
 app.get("/lesson", middleware.checkToken, (req, res, next) => {
 
+	console.log('lesson');
+
 	LessonModel.find({}, function(err, lesson) {
 		if (err) {
 			next(err);

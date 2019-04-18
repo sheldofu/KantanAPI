@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LoginForm from "./login";
+import Routing from "./routing";
+import "./style.css";
 
 ReactDOM.render(
-  <LoginForm />,
+  <Routing />,
   document.querySelector('#app')
 );
