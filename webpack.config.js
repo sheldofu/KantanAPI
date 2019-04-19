@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-module.exports = {
+module.exports =  {
     mode: 'production',
     entry: {
         app: './react/index.js',
@@ -12,7 +12,8 @@ module.exports = {
         contentBase: './dist',
         proxy: {
             '/lesson': 'http://localhost:9054'
-        }
+        },
+        historyApiFallback: true
     },
     module: {
         rules: [

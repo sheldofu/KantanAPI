@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log(process.env.NODE_ENV);
         if (process.env.NODE_ENV != 'production') {
             axios.defaults.baseURL = 'http://localhost:9054';
         }
@@ -34,13 +35,14 @@ class LoginForm extends React.Component {
 			});
 			if (result.data.success == true) {
 				console.log('success');
+				console.log(result.data.token);
 				localStorage.setItem('token', result.data.token);
-				axios.defaults.headers.common['Authorization'] = result.data.token;
+				axios.defaults.headers.common['authorization'] = result.data.token;
 			}
 		}).catch((error) => {
 			console.log(error);
 		});
-			event.preventDefault();
+		event.preventDefault();
 	}
 
 	render() {

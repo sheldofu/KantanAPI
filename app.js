@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "*"); 
+	res.header("Access-Control-Allow-Methods", "*");
     next();
 });
 
@@ -58,6 +59,20 @@ app.post("/lesson", middleware.checkToken, (req, res, next) => {
 		}
 	});
 });
+
+app.delete('/lesson/:id', middleware.checkToken, (req, res, next) => {
+	
+	LessonModel.remove( { lessonID: req.params.id }, function(err, lesson) {
+		if (err) {
+			next(err);
+			console.log(err);
+		} else {
+			res.json(lesson);
+			console.log('lesson deleted');
+		}
+	})
+
+})
 
 app.post("/user", function (req, res, next) {
 

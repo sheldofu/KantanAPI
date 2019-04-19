@@ -10,13 +10,17 @@ class MainCms extends React.Component{
             axios.defaults.baseURL = 'http://localhost:9054';
         }
         this.state = {
-            lessons: []
+            lessons: [],
+            addLesson: false
         }
-        this.addLesson = this.addLesson.bind(this);
     }
 
     componentDidMount() {
-        console.log('mounting');
+        this.getLessons();
+    }
+
+    getLessons() {
+        console.log("getting lessons");
         axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
         axios.get('/lesson')
         .then((result) => {
@@ -29,17 +33,44 @@ class MainCms extends React.Component{
     }
 
     addLesson() {
-        <Redirect to="addLesson"/>
+        this.setState({
+            addLesson: true
+        });        
+    }
+
+    deleteLesson(lessonID, event) {
+        
+        axios.delete('/lesson/' + lessonID,)
+        .then((result) => {
+            console.log(result);
+            this.getLessons();
+        }).catch((error) => {
+			console.log("problem", error);
+        });
+
+        event.preventDefault();
     }
 
     render() {
-        return (
+
+        if (this.state.addLesson == true) {
+            return <Redirect to="addLesson"/>
+        }
+
+        return (            
             <div>
                 <ul>
-                    { this.state.lessons.map((lesson) => <li key="{lesson.lessonID}">{lesson.lessonID}</li>)}
+                    { this.state.lessons.map((lesson) => 
+                        <li key={lesson.lessonID}>
+                            <span>{lesson.lessonID} | </span>
+                            <span>{lesson.lessonName} | </span>
+                            <span>edit | </span>
+                            <span onClick={this.deleteLesson.bind(this, lesson.lessonID)}>delete</span>
+                        </li>
+                    )}
                 </ul>
                 <div>
-                   { <button onClick={this.addLesson}>Add Lesson</button> }
+                   { <button onClick={this.addLesson.bind(this)}>Add Lesson</button> }
                 </div>
             </div>
         );
