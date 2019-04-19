@@ -6,9 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --open",
+    "start": "node app.js",
     "launch": "concurrently \"node app.js\" \"webpack-dev-server --open\"",
-    "server": "node app.js",
     "build": "webpack"
   },
   "repository": {
