@@ -4,7 +4,6 @@ const config = require('./config.js');
 let checkToken = (req, res, next) => {
 	
 	let token = req.headers['x-access-token'] || req.headers['authorization'];
-	console.log(req.headers);
 
 	if (token) {
 		jwt.verify(token, config.secret, (err, decoded) => {

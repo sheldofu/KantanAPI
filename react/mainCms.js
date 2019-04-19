@@ -60,14 +60,14 @@ class MainCms extends React.Component{
         return (            
             <div>
                 <ul>
-                    { this.state.lessons.map((lesson) => 
+                    { this.state.lessons.length ? this.state.lessons.length.map((lesson) => 
                         <li key={lesson.lessonID}>
                             <span>{lesson.lessonID} | </span>
                             <span>{lesson.lessonName} | </span>
                             <span>edit | </span>
                             <span onClick={this.deleteLesson.bind(this, lesson.lessonID)}>delete</span>
                         </li>
-                    )}
+                    ) : <div>No lessons exist</div> }
                 </ul>
                 <div>
                    { <button onClick={this.addLesson.bind(this)}>Add Lesson</button> }
