@@ -10,6 +10,7 @@ class MainCms extends React.Component{
         this.state = {
             lessons: []
         }
+        this.addLesson = this.addLesson.bind(this);
     }
 
     componentDidMount() {
@@ -33,10 +34,10 @@ class MainCms extends React.Component{
         return (
             <div>
                 <ul>
-                    { this.state.lessons.map((lesson) => <li key="lesson.lessonID">{lesson.lessonID}</li>)}
+                    { this.state.lessons.map((lesson) => <li key="{lesson.lessonID}">{lesson.lessonID}</li>)}
                 </ul>
                 <div>
-                   {/* <button onClick="{this.addLesson}">Add Lesson</button> */}
+                   { <button onClick={this.addLesson}>Add Lesson</button> }
                 </div>
             </div>
         );

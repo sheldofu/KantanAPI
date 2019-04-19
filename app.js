@@ -24,6 +24,13 @@ app.use(function(req, res, next) {
     next();
 });
 
+if (process.env.NODE_ENV == 'production') {
+	app.use(express.static('dist'));
+	app.get('/', (req, res) => {
+		res.sendfile('index.html');
+	})
+}
+
 app.get("/lesson", middleware.checkToken, (req, res, next) => {
 
 	console.log('lesson');
