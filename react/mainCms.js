@@ -60,7 +60,7 @@ class MainCms extends React.Component{
         return (            
             <div>
                 <ul>
-                    { this.state.lessons.length ? this.state.lessons.length.map((lesson) => 
+                    { this.state.lessons.length ? this.state.lessons.map((lesson) => 
                         <li key={lesson.lessonID}>
                             <span>{lesson.lessonID} | </span>
                             <span>{lesson.lessonName} | </span>
