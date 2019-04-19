@@ -5,7 +5,9 @@ import { Redirect } from "react-router-dom";
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
-		axios.defaults.baseURL = 'http://localhost:9054';
+        if (process.env.NODE_ENV != 'production') {
+            axios.defaults.baseURL = 'http://localhost:9054';
+        }
 		this.state = {
 			username: '',
 			password: '',
