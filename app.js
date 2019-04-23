@@ -60,6 +60,20 @@ app.post("/lesson", middleware.checkToken, (req, res, next) => {
 	});
 });
 
+app.put("/lesson", middleware.checkToken, (req, res, next) => {
+	console.log(req.body);
+	LessonModel.findOneAndUpdate({'lessonID': req.body.lessonID}, req.body, function(err, lesson) {
+		if (err) {
+			next(err);
+			console.log(err);
+		} else {
+			res.json(lesson);
+			console.log('lesson created');
+		}
+	});
+});
+
+
 app.delete('/lesson/:id', middleware.checkToken, (req, res, next) => {
 	
 	LessonModel.remove( { lessonID: req.params.id }, function(err, lesson) {

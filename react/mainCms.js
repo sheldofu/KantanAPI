@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 
 class MainCms extends React.Component{
@@ -64,7 +64,12 @@ class MainCms extends React.Component{
                         <li key={lesson.lessonID}>
                             <span>{lesson.lessonID} | </span>
                             <span>{lesson.lessonName} | </span>
-                            <span>edit | </span>
+                            <span><Link to={{
+                                pathname: 'editLesson',
+                                state: {
+                                    lesson
+                                }
+                            }}>edit</Link> | </span>
                             <span onClick={this.deleteLesson.bind(this, lesson.lessonID)}>delete</span>
                         </li>
                     ) : <div>No lessons exist</div> }

@@ -3,31 +3,33 @@ import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import TextInput from "./textInput"
 
-class AddLesson extends React.Component {
+class EditLesson extends React.Component {
 	constructor(props) {
 		super(props);
         if (process.env.NODE_ENV != 'production') {
             axios.defaults.baseURL = 'http://localhost:9054';
         }
+        const { lessonID, lessonName, level, summary, lessonText } = this.props.location.state.lesson;
 		this.state = {
+			value: '',
 			lessonID:  {
-				value: '',
+				value: lessonID,
 				label: 'Lesson ID'
 			},
 			lessonName: {
-				value: '',
+				value: lessonName,
 				label: 'Lesson Name'
 			},
 			level: {
-				value: '',
+				value: level,
 				label: 'Level'
 			},
 			summary:  {
-				value: '',
+				value: summary,
 				label: 'Summary'
 			},
 			lessonText:  {
-				value: '',
+				value: lessonText,
 				label: 'Lesson Text'
 			},
 			toCms: false
@@ -49,7 +51,7 @@ class AddLesson extends React.Component {
 	}
 
 	handleSubmit(event) {
-		axios.post('/lesson', {
+		axios.put('/lesson', {
 			lessonID: this.state.lessonID.value,
 			lessonName: this.state.lessonName.value,
 			level: this.state.level.value,
@@ -113,4 +115,4 @@ class AddLesson extends React.Component {
 	}
 }
 
-export default AddLesson;
+export default EditLesson;
