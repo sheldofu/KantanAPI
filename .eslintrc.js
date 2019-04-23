@@ -18,6 +18,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "react/prop-types": 0
     }
 };

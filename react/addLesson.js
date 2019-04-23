@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-//import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import TextInput from "./textInput"
 
 class AddLesson extends React.Component {
 	constructor(props) {
@@ -10,11 +11,27 @@ class AddLesson extends React.Component {
         }
 		this.state = {
 			value: '',
-			lessonID: '',
-			lessonName: '',
-			level: '',
-			summary: '',
-			lessonText: ''
+			lessonID:  {
+				value: '',
+				label: 'Lesson ID'
+			},
+			lessonName: {
+				value: '',
+				label: 'Lesson Name'
+			},
+			level: {
+				value: '',
+				label: 'Level'
+			},
+			summary:  {
+				value: '',
+				label: 'Summary'
+			},
+			lessonText:  {
+				value: '',
+				label: 'Lesson Text'
+			},
+			toCms: false
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,20 +40,27 @@ class AddLesson extends React.Component {
 	handleChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;
-		this.setState({[name]: value});
+		console.log(name, value, event.target);
+		this.setState({
+			[name]: {
+				...this.state[name], //needed to update state of object
+				value
+			}
+		});
 	}
 
 	handleSubmit(event) {
 		axios.post('/lesson', {
-			lessonID: this.state.lessonID,
-			lessonName: this.state.lessonName,
-			level: this.state.level,
-			summary: this.state.summary,
-			lessonText: this.state.lessonText
+			lessonID: this.state.lessonID.value,
+			lessonName: this.state.lessonName.value,
+			level: this.state.level.value,
+			summary: this.state.summary.value,
+			lessonText: this.state.lessonText.value
 		}).then((result) => {
 			console.log(result);
 			this.setState({
-				loginResponse: result.data
+				loginResponse: result.data,
+				toCms: true
 			});
 			if (result.data.success == true) {
 				console.log('post success');
@@ -44,33 +68,43 @@ class AddLesson extends React.Component {
 		}).catch((error) => {
 			console.log(error);
 		});
-			event.preventDefault();
+		event.preventDefault();
 	}
 
 	render() {
 
+		// if (this.state.toCms == true) {
+        //     return <Redirect to="addLesson"/>
+		// }
+		
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<label>
-					Lesson ID
-					<input type="text" name="lessonID" value={this.state.username} onChange={this.handleChange} />
-				</label>
-				<label>
-					Lesson Name
-					<input type="text" name="lessonName" value={this.state.password} onChange={this.handleChange} />
-				</label>
-				<label>
-					Level
-					<input type="text" name="level" value={this.state.username} onChange={this.handleChange} />
-				</label>
-				<label>
-					Summary
-					<input type="text" name="summary" value={this.state.password} onChange={this.handleChange} />
-				</label>
-				<label>
-					Lesson Text
-					<input type="text" name="lessonText" value={this.state.password} onChange={this.handleChange} />
-				</label>
+
+				<TextInput name="lessonID"
+					label={this.state.lessonID.label}
+					value={this.state.lessonID.value}
+					onChange={this.handleChange}
+				/>
+				<TextInput name="lessonName"
+					label={this.state.lessonName.label}
+					value={this.state.lessonName.value}
+					onChange={this.handleChange}
+				/>
+				<TextInput name="level"
+					label={this.state.level.label}
+					value={this.state.level.value}
+					onChange={this.handleChange}
+				/>
+				<TextInput name="summary"
+					label={this.state.summary.label}
+					value={this.state.summary.value}
+					onChange={this.handleChange}
+				/>
+				<TextInput name="lessonText"
+					label={this.state.lessonText.label}
+					value={this.state.lessonText.value}
+					onChange={this.handleChange}
+				/>
 				<input type="submit" value="Submit" />
 			</form>
 		);
